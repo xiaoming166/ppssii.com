@@ -1,4 +1,5 @@
 #!/bin/bash
 git add .
-git commit -a -m `date`
+msg=`date`
+git commit -a -m "$msg"
 git push origin master
