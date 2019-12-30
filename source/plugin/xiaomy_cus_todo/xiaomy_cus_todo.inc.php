@@ -10,6 +10,7 @@ if ($Todo->checkMod() === false) {
 	$Todo->code = 404;
 	$Todo->msg = 'fail';
 }else{
+	$Todo->checkMember();
 	include $Todo->getModFile();
 }
 $Todo->return();

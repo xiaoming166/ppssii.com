@@ -1,7 +1,7 @@
-<?php if(!defined('IN_DISCUZ')) exit('Access Denied'); hookscriptoutput('login');
+<?php if(!defined('IN_DISCUZ')) exit('Access Denied'); 
 0
-|| checktplrefresh('./template/default/member/login.htm', './template/default/common/seccheck.htm', 1573237028, '1', './data/template/1_1_member_login.tpl.php', './template/default', 'member/login')
-;?><?php include template('common/header'); $loginhash = 'L'.random(4);?><?php if(empty($_GET['infloat'])) { ?>
+|| checktplrefresh('./template/default/member/login.htm', './template/default/common/seccheck.htm', 1577527830, '1', './data/template/1_1_member_login.tpl.php', './template/default', 'member/login')
+;?><?php include template('common/header1'); $loginhash = 'L'.random(4);?><?php if(empty($_GET['infloat'])) { ?>
 <div id="ct" class="ptm wp w cl">
 <div class="nfl" id="main_succeed" style="display: none">
 <div class="f_c altw">
@@ -252,4 +252,4 @@ $('lostpw_email').focus();
 </script><?php updatesession();?><?php if(empty($_GET['infloat'])) { ?>
 </div></div></div></div>
 </div>
-<?php } include template('common/footer'); ?>
+<?php } include template('common/footer1'); ?>

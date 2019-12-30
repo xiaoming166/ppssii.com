@@ -1,7 +1,7 @@
-<?php if(!defined('IN_DISCUZ')) exit('Access Denied'); hookscriptoutput('register');
+<?php if(!defined('IN_DISCUZ')) exit('Access Denied'); 
 0
-|| checktplrefresh('./template/default/member/register.htm', './template/default/common/seccheck.htm', 1573237023, '1', './data/template/1_1_member_register.tpl.php', './template/default', 'member/register')
-;?><?php include template('common/header'); ?><script type="text/javascript">
+|| checktplrefresh('./template/default/member/register.htm', './template/default/common/seccheck.htm', 1577520302, '1', './data/template/1_1_member_register.tpl.php', './template/default', 'member/register')
+;?><?php include template('common/header1'); ?><script type="text/javascript">
 var strongpw = new Array();
 <?php if($_G['setting']['strongpw']) { if(is_array($_G['setting']['strongpw'])) foreach($_G['setting']['strongpw'] as $key => $val) { ?>strongpw[<?php echo $key;?>] = <?php echo $val;?>;
 <?php } } ?>
@@ -276,4 +276,4 @@ $('fwin_dialog_close').style.display = 'none';
 </script>
 
 </div></div>
-</div><?php updatesession();?><?php include template('common/footer'); ?>
+</div><?php updatesession();?><?php include template('common/footer1'); ?>

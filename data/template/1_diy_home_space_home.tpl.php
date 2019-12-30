@@ -1,10 +1,10 @@
 <?php if(!defined('IN_DISCUZ')) exit('Access Denied'); hookscriptoutput('space_home');
 0
-|| checktplrefresh('./template/default/home/space_home.htm', './template/default/home/space_header.htm', 1573245633, 'diy', './data/template/1_diy_home_space_home.tpl.php', './template/default', 'home/space_home')
-|| checktplrefresh('./template/default/home/space_home.htm', './template/default/home/space_userabout.htm', 1573245633, 'diy', './data/template/1_diy_home_space_home.tpl.php', './template/default', 'home/space_home')
-|| checktplrefresh('./template/default/home/space_home.htm', './template/default/common/header_common.htm', 1573245633, 'diy', './data/template/1_diy_home_space_home.tpl.php', './template/default', 'home/space_home')
-|| checktplrefresh('./template/default/home/space_home.htm', './template/default/home/space_diy.htm', 1573245633, 'diy', './data/template/1_diy_home_space_home.tpl.php', './template/default', 'home/space_home')
-|| checktplrefresh('./template/default/home/space_home.htm', './template/default/home/space_header_personalnv.htm', 1573245633, 'diy', './data/template/1_diy_home_space_home.tpl.php', './template/default', 'home/space_home')
+|| checktplrefresh('./template/default/home/space_home.htm', './template/default/home/space_header.htm', 1577418184, 'diy', './data/template/1_diy_home_space_home.tpl.php', './template/default', 'home/space_home')
+|| checktplrefresh('./template/default/home/space_home.htm', './template/default/home/space_userabout.htm', 1577418184, 'diy', './data/template/1_diy_home_space_home.tpl.php', './template/default', 'home/space_home')
+|| checktplrefresh('./template/default/home/space_home.htm', './template/default/common/header_common.htm', 1577418184, 'diy', './data/template/1_diy_home_space_home.tpl.php', './template/default', 'home/space_home')
+|| checktplrefresh('./template/default/home/space_home.htm', './template/default/home/space_diy.htm', 1577418184, 'diy', './data/template/1_diy_home_space_home.tpl.php', './template/default', 'home/space_home')
+|| checktplrefresh('./template/default/home/space_home.htm', './template/default/home/space_header_personalnv.htm', 1577418184, 'diy', './data/template/1_diy_home_space_home.tpl.php', './template/default', 'home/space_home')
 ;?>
 <?php if(empty($diymode)) { include template('common/header'); ?><div id="pt" class="bm cl">
 <div class="z">

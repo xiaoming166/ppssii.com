@@ -13,7 +13,7 @@ class Todo
 	// 默认返回的数据
 	public $data = false;
 	// 允许访问的接口
-	public $mods = ['getCatyitem', 'addItem', 'setItem', 'deleteItem', 'mvItem', 'getMenu', 'addMenu', 'deleteMenu', 'uploadImages', 'getImages', 'deleteImages', 'setItemOrders'];
+	public $mods = ['setMidOrders','catalog','getCatyitem', 'addItem', 'setItem', 'deleteItem', 'mvItem', 'getMenu', 'addMenu', 'deleteMenu', 'uploadImages', 'getImages', 'deleteImages', 'setItemOrders', 'setMenu'];
 
 	// 默认的接口文件
 	public $modFile = '';
@@ -31,6 +31,22 @@ class Todo
 	{
 		global $_G;
 		$this->_G = $_G;
+	}
+
+	/**
+	 * 判断参数中是否存在uid, 如果不存在则创建一个临时uid
+	 */
+	public function checkMember(){
+		$uid = $_GET['uid'];
+		if (!$uid) {
+			if (getcookie('outloginuid')) {
+				$uid = getcookie('outloginuid');
+			}else{
+				$uid = 9999999+rand(1000,9999);
+				setcookie('outloginuid', $uid, 3600*24*30);
+			}
+		}
+		$_GET['uid'] = $uid;
 	}
 
 	/**
@@ -155,7 +171,7 @@ class Todo
 	 * @return [type]        [菜单数据]
 	 */
 	public function getMenuAll($field){
-		return DB::fetch_all('select * from %t'.$this->getCondition($field), array('xiaomy_cus_todo_menu'));
+		return DB::fetch_all('select * from %t'.$this->getCondition($field) .'order by orderid asc', array('xiaomy_cus_todo_menu'));
 	}
 
 	/**
@@ -231,6 +247,15 @@ class Todo
 		}
 		return DB::update('xiaomy_cus_todo_item', $data, $condition);
 	}
+
+    /**
+     * [setItem 修改父项目数据]
+     * @param [type] $data      [修改内容]
+     * @param [type] $condition [修改条件]
+     */
+    public function setMenu($data, $condition){
+        return DB::update('xiaomy_cus_todo_menu', $data, $condition);
+    }
 
 	/**
 	 * [deleteItem 删除子项目]
