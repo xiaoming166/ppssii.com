@@ -260,8 +260,8 @@ $lang = array
 	'thread_debate' => '辩论主题',
 
 	'discuz_message' => 'Discuz! 提示',
-	'message_redirect' => '如果您的浏览器没有自动跳转，请点击这里',
-	'message_download' => '如果您的浏览器没有自动下载，请点击此链接',
+	'message_redirect' => 'If your browser does not automatically jump, please click here',
+	'message_download' => 'If your browser does not download automatically, please click this link',
 	'message_return' => '点击这里返回上一页',
 	'xml_http_building_link' => '请等待，正在建立连接...',
 	'xml_http_sending' => '请等待，正在发送数据...',
