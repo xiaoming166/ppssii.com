@@ -1036,7 +1036,7 @@ $lang = array (
   'register_manual_verify' => '感谢您的注册，站点开启了人工验证注册用户，请等待审核',
   'register_manual_verify_location' => '<a href="home.php?mod=space&do=home">先去逛逛</a>',
   //'register_succeed' => '感谢您注册 {bbname}，现在将以 {usergroup} 身份登录站点',
-  'register_succeed' => '注册成功！',
+  'register_succeed' => 'register_succeed',
   //'register_succeed_location' => '<a href="home.php?mod=spacecp">现在去完善资料</a> <a href="home.php?mod=space&do=home">先去逛逛</a>',
   'register_succeed_location' => '',
 
