@@ -154,10 +154,9 @@ class Todo
 	 * @return [type]      [菜单数据]
 	 */
 	public function getMenu($mid){
-		$uid=C::t('#xiaomy_cus_todo#jnpar_add')->getuid();
-		return DB::fetch_first('select * from %t where id = %d and uid=1', array('xiaomy_cus_todo_menu', $mid,$uid));
+		return DB::fetch_first('select * from %t where id = %d', array('xiaomy_cus_todo_menu', $mid));
 	}
-
+	
 	/**
 	 * [getMenuAll 获取所有的菜单数据]
 	 * @param  [type] $field [获取条件]
