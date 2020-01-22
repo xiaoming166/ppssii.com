@@ -8,7 +8,7 @@
 <div class="alert_right">
 <p id="succeedmessage"></p>
 <p id="succeedlocation" class="alert_btnleft"></p>
-<p class="alert_btnleft"><a id="succeedmessage_href">如果您的浏览器没有自动跳转，请点击此链接</a></p>
+<p class="alert_btnleft"><a id="succeedmessage_href">If your browser does not jump automatically, please click this link</a></p>
 </div>
 </div>
 </div>
