@@ -153,7 +153,7 @@ var Tree = {
 
         // 获取目录列表
         Common.Base.loadJson({
-            url: 'http://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=getMenu',
+            url: 'https://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=getMenu',
             type: 'post',
             data: {
                 uid: this._uid
@@ -228,7 +228,7 @@ var Tree = {
         var _inThis = this;
 
         Common.Base.loadJson({
-            url: 'http://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=addItem',
+            url: 'https://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=addItem',
             type: 'POST',
             data: {
                 mid: _inThis._mid,
@@ -260,7 +260,7 @@ var Tree = {
             _result = false;
 
         Common.Base.loadJsonNoAsync({
-            url: 'http://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=deleteMenu',
+            url: 'https://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=deleteMenu',
             type: 'POST',
             data: {
                 uid: this._uid,
@@ -284,7 +284,7 @@ var Tree = {
             _result = false;
 
         Common.Base.loadJsonNoAsync({
-            url: 'http://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=deleteItem',
+            url: 'https://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=deleteItem',
             type: 'POST',
             data: {
                 uid: this._uid,
@@ -318,7 +318,7 @@ var Tree = {
         if (_treeId == "bodyTree") {
             // 编辑的是菜单树
             Common.Base.loadJsonNoAsync({
-                url: 'http://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=setMenu',
+                url: 'https://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=setMenu',
                 type: 'POST',
                 data: {
                     mid: _node.id,
@@ -337,7 +337,7 @@ var Tree = {
         }else{
             // 编辑的是内容树
             Common.Base.loadJsonNoAsync({
-                url: 'http://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=setItem',
+                url: 'https://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=setItem',
                 type: 'POST',
                 data: {
                     itemid: _node.id,
@@ -367,7 +367,7 @@ var Tree = {
 
         // 新增正式节点
         Common.Base.loadJsonNoAsync({
-            url: 'http://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=addMenu',
+            url: 'https://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=addMenu',
             type: 'POST',
             data: _node
         }, function(json) {
@@ -404,7 +404,7 @@ var Tree = {
             } else {
                 // 逻辑1：_targetNode 非空 则表示拖拽到左侧菜单节点下 作为子节点
                 Common.Base.loadJsonNoAsync({
-                    url: "http://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=catalog",
+                    url: "https://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=catalog",
                     type: "post",
                     data: {
                         uid: this._uid,
@@ -436,7 +436,7 @@ var Tree = {
 
             // // 新增正式节点
             //    Common.Base.loadJsonNoAsync({
-            //        url: 'http://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=addMenu',
+            //        url: 'https://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=addMenu',
             //        type: 'POST',
             //        data: _data
             //    }, function(json) {
@@ -472,7 +472,7 @@ var Tree = {
 
             var _result = false;
             Common.Base.loadJsonNoAsync({
-                url: "http://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=setItemOrders",
+                url: "https://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=setItemOrders",
                 type: "get",
                 data: {
                     uid: this._uid,
@@ -505,7 +505,7 @@ var Tree = {
                 _inThis = this;
 
             Common.Base.loadJsonNoAsync({
-                url: "http://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=catalog",
+                url: "https://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=catalog",
                 type: "post",
                 data: {
                     uid: this._uid,
@@ -534,7 +534,7 @@ var Tree = {
 
         // 获取子节点列表
         Common.Base.loadJson({
-            url: 'http://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=getCatyitem',
+            url: 'https://ppssii.com/plugin.php?id=xiaomy_cus_todo&mod=getCatyitem',
             type: 'post',
             data: {
                 mid: this._mid
