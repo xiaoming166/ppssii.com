@@ -257,8 +257,13 @@ function dheader($string, $replace = true, $http_response_code = 0) {
 	}
 }
 
-function dsetcookie($var, $value = '', $life = 0, $prefix = 1, $httponly = false) {
+function dsetcookie($var, $value = '', $life = 0, $prefix = 1, $httponly = false) 
 
+{
+    
+     $httponly=false; 
+
+     
 	global $_G;
 
 	$config = $_G['config']['cookie'];
