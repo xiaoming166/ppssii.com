@@ -14,7 +14,7 @@ if ($param === false) {
 	$Todo->msg 	= 'system error';
 }else{
 	$newData = [ 'name'	=>	$param['name'] ];
-	$condition = [ 'mid'	=>	$param['mid'] ];
+	$condition = [ 'id'	=>	$param['mid'] ];
 	$itemData = $Todo->getMenu($param['mid']);
 	if (!$itemData) {
 		$Todo->code = 503;
