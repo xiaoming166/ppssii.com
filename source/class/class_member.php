@@ -186,7 +186,7 @@ class logging_ctl {
 				            $token = 'android_token';
 				            break;
 				    }
-				    C::t('common_member')->update($_G['uid'], array('web_token' => $_COOKIE['sB7M_2132_auth']));
+				    C::t('common_member')->update($_G['uid'], array($token => $_COOKIE['sB7M_2132_auth']));
 				}
 				
 				if($_G['member']['adminid'] != 1) {
