@@ -27,7 +27,26 @@ class logging_ctl {
 		$js = '<script type="text/javascript">showWindow(\'login\', \'member.php?mod=logging&action=login&auth='.rawurlencode($auth).'&referer='.rawurlencode(dreferer()).(!empty($_GET['cookietime']) ? '&cookietime=1' : '').'\')</script>';
 		showmessage('location_login', '', array('type' => 1), array('extrajs' => $js));
 	}
-
+	function getDevice(){
+	    $agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+	    //分析数据
+	    $is_pc = (strpos($agent, 'windows nt')) ? true : false;
+	    $is_iphone = (strpos($agent, 'iphone')) ? true : false;
+	    $is_ipad = (strpos($agent, 'ipad')) ? true : false;
+	    $is_android = (strpos($agent, 'android')) ? true : false;
+	    //输出数据
+	    if($is_pc){
+	        return 1;
+	    }
+	    if($is_iphone || $is_ipad){
+	        return 2;
+	    }
+	    
+	    if($is_android){
+	        return 3;
+	    }
+	    return 0;
+	}
 	function on_login() {
 		global $_G;
 		if($_G['uid']) {
@@ -118,7 +137,8 @@ class logging_ctl {
 				if($this->extrafile && file_exists($this->extrafile)) {
 					require_once $this->extrafile;
 				}
-
+				
+				C::t('common_member')->update($_G['uid'], array('freeze' => 2));
 				setloginstatus($result['member'], $_GET['cookietime'] ? 2592000 : 0);
 				checkfollowfeed();
 				if($_G['group']['forcelogin']) {
@@ -152,7 +172,23 @@ class logging_ctl {
 						$pwold = true;
 					}
 				}
-
+				$devicetype = $this->getDevice();
+				if(!empty($devicetype) && !empty($_COOKIE['sB7M_2132_auth'])){
+				    $token = '';
+				    switch($devicetype){
+				        case 1:
+				            $token = 'web_token';
+				            break;
+				        case 2: 
+				            $token = 'ios_token';
+				            break;
+				        case 3:
+				            $token = 'android_token';
+				            break;
+				    }
+				    C::t('common_member')->update($_G['uid'], array('web_token' => $_COOKIE['sB7M_2132_auth']));
+				}
+				
 				if($_G['member']['adminid'] != 1) {
 					if($this->setting['accountguard']['loginoutofdate'] && $_G['member']['lastvisit'] && TIMESTAMP - $_G['member']['lastvisit'] > 90 * 86400) {
 						C::t('common_member')->update($_G['uid'], array('freeze' => 2));
@@ -362,11 +398,9 @@ class register_ctl {
 
 		if($_G['uid']) {
 			$ucsynlogin = $this->setting['allowsynlogin'] ? uc_user_synlogin($_G['uid']) : '';
-			//$url_forward = dreferer();
-			$url_forward = 'ihome.php';
+			$url_forward = dreferer();
 			if(strpos($url_forward, $this->setting['regname']) !== false) {
-				//$url_forward = 'forum.php';
-				$url_forward = 'ihome.php';
+				$url_forward = 'forum.php';
 			}
 			showmessage('login_succeed', $url_forward ? $url_forward : './', array('username' => $_G['member']['username'], 'usergroup' => $_G['group']['grouptitle'], 'uid' => $_G['uid']), array('extrajs' => $ucsynlogin));
 		} elseif(!$this->setting['regclosed'] && (!$this->setting['regstatus'] || !$this->setting['ucactivation'])) {
@@ -887,8 +921,7 @@ class register_ctl {
 			dsetcookie('activationauth', '');
 			dsetcookie('invite_auth', '');
 
-			//$url_forward = dreferer();
-			$url_forward = 'ihome.php';
+			$url_forward = dreferer();
 			$refreshtime = 3000;
 			switch($this->setting['regverify']) {
 				case 1:
@@ -920,8 +953,7 @@ class register_ctl {
 			}
 			$param = array('bbname' => $this->setting['bbname'], 'username' => $_G['username'], 'usergroup' => $_G['group']['grouptitle'], 'uid' => $_G['uid']);
 			if(strpos($url_forward, $this->setting['regname']) !== false || strpos($url_forward, 'buyinvitecode') !== false) {
-				//$url_forward = 'forum.php';
-				$url_forward = 'ihome.php';
+				$url_forward = 'forum.php';
 			}
 			$href = str_replace("'", "\'", $url_forward);
 			$extra = array(
