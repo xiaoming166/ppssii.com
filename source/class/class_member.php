@@ -4,6 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
+ 
  *      $Id: class_member.php 34156 2013-10-25 01:10:00Z nemohou $
  */
 
