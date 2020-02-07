@@ -1,4 +1,4 @@
-var host="ws://127.0.0.1:8282"; //websocket连接地址
+var host="ws://ppssii.com:8282"; //websocket连接地址
 var ws=new WebSocket(host);  //创建websocket对象
 var token=null;     //凭据
 
