@@ -1,6 +1,6 @@
 const routes = [
     {
-        path: '/',
+        path: '*',
         component: Index,
         children: [{
             path: '',
