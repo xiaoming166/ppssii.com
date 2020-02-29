@@ -38,9 +38,15 @@ class table_jnpar_add extends discuz_table
                 }
             }
             if (empty($uid) || empty($hash)) {
-                list($uid, $auth) = $this->generate_new_visitor();
+//                list($uid, $auth) = $this->generate_new_visitor();
 //                dsetcookie('visitor_uid', $uid);
 //                dsetcookie('visitor_auth', $auth);
+                //do not generate temporary user here
+                //client should request new user via API
+                global $Todo;
+                $Todo->code = 401;
+                $Todo->msg = 'access denied';
+                $Todo->return1();
             }
             $_G['plugin_visitor_uid'] = $uid;
             $_G['plugin_visitor_auth'] = $auth;
@@ -50,7 +56,7 @@ class table_jnpar_add extends discuz_table
 		return $uid;
 	}
 
-	protected function generate_new_visitor() {
+	public function generate_new_visitor() {
 	    global $_G;
 	    $todo = new Todo();
         $mid = DB::query(sprintf('INSERT INTO %s SET uid=min(uid)-1, name=%s',
