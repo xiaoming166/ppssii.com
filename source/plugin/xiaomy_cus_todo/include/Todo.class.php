@@ -13,7 +13,7 @@ class Todo
 	// 默认返回的数据
 	public $data = false;
 	// 允许访问的接口
-	public $mods = ['setMidOrders','catalog','getCatyitem', 'addItem', 'setItem', 'deleteItem', 'mvItem', 'getMenu', 'addMenu', 'deleteMenu', 'uploadImages', 'getImages', 'deleteImages', 'setItemOrders', 'setMenu'];
+	public $mods = ['setMidOrders','catalog','getCatyitem', 'addItem', 'setItem', 'deleteItem', 'mvItem', 'getMenu', 'addMenu', 'deleteMenu', 'uploadImages', 'getImages', 'deleteImages', 'setItemOrders', 'setMenu', 'getNewUser'];
 
 	// 默认的接口文件
 	public $modFile = '';
