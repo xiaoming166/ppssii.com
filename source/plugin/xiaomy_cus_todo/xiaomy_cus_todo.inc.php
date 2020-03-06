@@ -7,8 +7,10 @@ if(!defined('IN_DISCUZ')) {
 include DISCUZ_ROOT.'source/plugin/xiaomy_cus_todo/include/loader.php';
 $Todo = new Todo();
 if ($Todo->checkMod() === false) {
-	$Todo->code = 404;
-	$Todo->msg = 'fail';
+    $Todo->code = 404;
+    $Todo->msg = 'fail';
+}elseif($_GET['mod'] == 'getNewUser'){
+    include $Todo->getModFile();
 }else{
 	$Todo->checkMember();
 	include $Todo->getModFile();
