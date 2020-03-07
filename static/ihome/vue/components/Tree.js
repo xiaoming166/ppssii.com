@@ -62,6 +62,36 @@ const Tree = {
         }
     },
     methods: {
+        request(mod, params) {
+            params = params === undefined ? {} : params;
+            params['uid'] = sessionStorage.getItem('uid');
+            params['auth'] = sessionStorage.getItem('auth');
+            let request = new Request('plugin.php?id=xiaomy_cus_todo&mod='+mod,
+              {
+                  method: 'POST',
+                  body: JSON.stringify(params)
+              });
+            let allowRetry = mod == 'getNewUser' ? 0 : 1;
+            while(allowRetry >= 0) {
+                allowRetry--;
+                let data = fetch(request).then(function(response) {
+                    return response.json().then(function(json) {
+                        return json;
+                    });
+                });
+                if(data.code == 200) {
+                    if(mod == 'getNewUser') {
+                        sessionStorage.setItem('uid', data.data.uid);
+                        sessionStorage.setItem('auth', data.data.auth);
+                    }
+                }else if(data.code == 401) {
+                    this.request('getNewUser', {});
+                }else{
+                    alert(data.msg);
+                }
+            }
+            return data;
+        },
         handleDragStart(node, ev) {
             console.log('drag start', node);
         },
@@ -78,6 +108,7 @@ const Tree = {
             console.log('tree drag end: ', dropNode && dropNode.label, dropType);
         },
         handleDrop(draggingNode, dropNode, dropType, ev) {
+            this.request('getMenu');
             console.log('tree drop: ', dropNode.label, dropType);
         },
 
