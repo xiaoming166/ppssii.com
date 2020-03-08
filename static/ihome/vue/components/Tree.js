@@ -68,8 +68,11 @@ const Tree = {
             //callback：请求完成后的回调函数
             params = params === undefined ? {} : params;
             //从sessionStorage中获取uid和auth，当用户未登录且没有有效身份时会自动请求getNewUser并将身份写入其中
-            params['uid'] = sessionStorage.getItem('uid');
-            params['auth'] = sessionStorage.getItem('auth');
+            if(sessionStorage.getItem('uid') != null) {
+                params['uid'] = sessionStorage.getItem('uid');
+                params['auth'] = sessionStorage.getItem('auth');
+            }
+            //将json转为form-data（php不支持直接将json格式的数据转为$_POST，后端也没做额外处理）
             let formData = new FormData();
             for(let i in params){
                 formData.append(i, params[i]);
