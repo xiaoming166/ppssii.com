@@ -59,7 +59,8 @@ class table_jnpar_add extends discuz_table
 	public function generate_new_visitor() {
 	    global $_G;
 	    $todo = new Todo();
-        $mid = DB::query(sprintf('INSERT INTO %s SET uid=min(uid)-1, name=%s',
+        $mid = DB::query(sprintf('INSERT INTO %s SET uid=(SELECT v FROM (SELECT min(uid)-1 AS v FROM %s) as b), name=%s',
+            DB::table('xiaomy_cus_todo_menu'),
             DB::table('xiaomy_cus_todo_menu'),
             "'root'")
         );
