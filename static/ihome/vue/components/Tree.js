@@ -62,35 +62,43 @@ const Tree = {
         }
     },
     methods: {
-        request(mod, params) {
+        request(mod, params, callback) {
+            //mod: API模块
+            //params: API请求需要的参数（除了uid和auth）
+            //callback：请求完成后的回调函数
             params = params === undefined ? {} : params;
+            //从sessionStorage中获取uid和auth，当用户未登录且没有有效身份时会自动请求getNewUser并将身份写入其中
             params['uid'] = sessionStorage.getItem('uid');
             params['auth'] = sessionStorage.getItem('auth');
+            let formData = new FormData();
+            for(let i in params){
+                formData.append(i, params[i]);
+            }
             let request = new Request('plugin.php?id=xiaomy_cus_todo&mod='+mod,
               {
                   method: 'POST',
-                  body: JSON.stringify(params)
+                  body: formData
               });
+            //对于普通的API请求，允许额外请求getNewUser
             let allowRetry = mod == 'getNewUser' ? 0 : 1;
             while(allowRetry >= 0) {
                 allowRetry--;
-                let data = fetch(request).then(function(response) {
-                    return response.json().then(function(json) {
-                        return json;
+                fetch(request).then(function(response) {
+                    return response.json().then(function(data) {
+                        if(data.code == 200) {
+                            if(mod == 'getNewUser') {
+                                sessionStorage.setItem('uid', data.data.uid);
+                                sessionStorage.setItem('auth', data.data.auth);
+                            }
+                        }else if(data.code == 401) {
+                            this.request('getNewUser', {});
+                        }else{
+                            alert(data.msg);
+                        }
+                        callback(data);
                     });
                 });
-                if(data.code == 200) {
-                    if(mod == 'getNewUser') {
-                        sessionStorage.setItem('uid', data.data.uid);
-                        sessionStorage.setItem('auth', data.data.auth);
-                    }
-                }else if(data.code == 401) {
-                    this.request('getNewUser', {});
-                }else{
-                    alert(data.msg);
-                }
             }
-            return data;
         },
         handleDragStart(node, ev) {
             console.log('drag start', node);
