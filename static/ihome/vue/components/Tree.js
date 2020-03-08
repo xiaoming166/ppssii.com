@@ -66,6 +66,7 @@ const Tree = {
             //mod: API模块
             //params: API请求需要的参数（除了uid和auth）
             //callback：请求完成后的回调函数
+            let self = this;
             params = params === undefined ? {} : params;
             callback = callback === undefined ? function(i){} : callback;
             //从sessionStorage中获取uid和auth，当用户未登录且没有有效身份时会自动请求getNewUser并将身份写入其中
@@ -92,8 +93,8 @@ const Tree = {
                         }
                     }else if(data.code == 401 && mod != 'getNewUser') {
                         //对于普通的API请求，允许额外请求getNewUser
-                        this.request('getNewUser', {}, function (i) {
-                            this.request(mod, params, callback);
+                        self.request('getNewUser', {}, function (i) {
+                            self.request(mod, params, callback);
                         });
                     }else{
                         alert(data.msg);
