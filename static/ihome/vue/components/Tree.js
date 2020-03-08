@@ -67,6 +67,7 @@ const Tree = {
             //params: API请求需要的参数（除了uid和auth）
             //callback：请求完成后的回调函数
             params = params === undefined ? {} : params;
+            callback = callback === undefined ? function(i){} : callback;
             //从sessionStorage中获取uid和auth，当用户未登录且没有有效身份时会自动请求getNewUser并将身份写入其中
             if(sessionStorage.getItem('uid') != null) {
                 params['uid'] = sessionStorage.getItem('uid');
@@ -82,26 +83,24 @@ const Tree = {
                   method: 'POST',
                   body: formData
               });
-            //对于普通的API请求，允许额外请求getNewUser
-            let allowRetry = mod == 'getNewUser' ? 0 : 1;
-            while(allowRetry >= 0) {
-                allowRetry--;
-                fetch(request).then(function(response) {
-                    return response.json().then(function(data) {
-                        if(data.code == 200) {
-                            if(mod == 'getNewUser') {
-                                sessionStorage.setItem('uid', data.data.uid);
-                                sessionStorage.setItem('auth', data.data.auth);
-                            }
-                        }else if(data.code == 401) {
-                            this.request('getNewUser', {});
-                        }else{
-                            alert(data.msg);
+            fetch(request).then(function(response) {
+                return response.json().then(function(data) {
+                    if(data.code == 200) {
+                        if(mod == 'getNewUser') {
+                            sessionStorage.setItem('uid', data.data.uid);
+                            sessionStorage.setItem('auth', data.data.auth);
                         }
-                        callback(data);
-                    });
+                    }else if(data.code == 401 && mod != 'getNewUser') {
+                        //对于普通的API请求，允许额外请求getNewUser
+                        this.request('getNewUser', {}, function (i) {
+                            this.request(mod, params, callback);
+                        });
+                    }else{
+                        alert(data.msg);
+                    }
+                    callback(data);
                 });
-            }
+            });
         },
         handleDragStart(node, ev) {
             console.log('drag start', node);
@@ -119,7 +118,7 @@ const Tree = {
             console.log('tree drag end: ', dropNode && dropNode.label, dropType);
         },
         handleDrop(draggingNode, dropNode, dropType, ev) {
-            this.request('getMenu');
+            this.request('getMenu', {}, function(i){console.log(i)});
             console.log('tree drop: ', dropNode.label, dropType);
         },
 
