@@ -1,8 +1,9 @@
 <?php
 
 /**
- *      [Discuz!] (C)2001-2099 Comsenz Inc.
+ *     注释[Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
+ *
  *
  *      $Id: api.php 33591 2013-07-12 06:39:49Z andyzheng $
  */
