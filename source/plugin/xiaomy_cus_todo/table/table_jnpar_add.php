@@ -21,22 +21,54 @@ class table_jnpar_add extends discuz_table
 	
 	public function getuid(){
 		global $_G;
-		//dsetcookie('outloginuid', $uid, 3600*24*30);
-		//$_GET['uid']=intval($_GET['uid']);
-		//$uid = $_GET['uid']?$_GET['uid']:$_G['uid'];
-		$uid = $_G['uid'];
-		if (!$uid) {
-			if (getcookie('outloginuid')) {
-				$uid = getcookie('outloginuid');
-			}else{
-				//$uid = 9999999+rand(100000,9999999);
-				$uid = 8378600+rand(1000,9999);
-				dsetcookie('outloginuid', $uid, 3600*24*30);
-			}
-		}
+		if($_G['plugin_visitor_uid'] > 0) {
+		    return $_G['plugin_visitor_uid'];
+        }elseif ($_G['uid'] > 0) {
+            $uid = $_G['uid'];
+        } else {
+//            $uid = getcookie('visitor_uid');
+//            $auth = getcookie('visitor_auth');
+            $uid = getgpc('uid');
+            $auth = getgpc('auth');
+            if (!empty($uid) && !empty($auth)) {
+                $salt = substr($auth, -8);
+                $hash = substr($auth, 0, -8);
+                if (md5($uid . $_G['config']['security']['authkey'] . $salt) !== $hash) {
+                    exit('access denied');
+                }
+            }
+            if (empty($uid) || empty($hash)) {
+//                list($uid, $auth) = $this->generate_new_visitor();
+//                dsetcookie('visitor_uid', $uid);
+//                dsetcookie('visitor_auth', $auth);
+                //do not generate temporary user here
+                //client should request new user via API
+                global $Todo;
+                $Todo->code = 401;
+                $Todo->msg = 'access denied';
+                $Todo->return1();
+            }
+            $_G['plugin_visitor_uid'] = $uid;
+            $_G['plugin_visitor_auth'] = $auth;
+        }
 		$_GET['uid']=$uid;
 		//debug($uid);
 		return $uid;
 	}
+
+	public function generate_new_visitor() {
+	    global $_G;
+	    $todo = new Todo();
+        $mid = DB::query(sprintf('INSERT INTO %s SET uid=(SELECT v FROM (SELECT min(uid)-1 AS v FROM %s) as b), name=%s',
+            DB::table('xiaomy_cus_todo_menu'),
+            DB::table('xiaomy_cus_todo_menu'),
+            "'root'")
+        );
+        $m = $todo->getMenu($mid);
+        $uid = $m['uid'];
+        $salt = random(8);
+        $hash = md5($uid . $_G['config']['security']['authkey'] . $salt);
+        return [$uid, $hash.$salt];
+    }
 	
 }
