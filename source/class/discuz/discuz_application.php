@@ -367,11 +367,13 @@ class discuz_application extends discuz_base{
 			$temp = '';
 		}
 
+     //** 屏蔽请求特殊字符
+
 		if(!empty($temp)) {
 			$temp = strtoupper(urldecode(urldecode($temp)));
 			foreach ($check as $str) {
 				if(strpos($temp, $str) !== false) {
-					system_error('request_tainting');
+					// system_error('request_tainting');
 				}
 			}
 		}
