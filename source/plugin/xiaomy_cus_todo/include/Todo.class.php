@@ -12,10 +12,11 @@ class Todo
 	public $msg = 'success';
 	// 默认返回的数据
 	public $data = false;
+
 	// 允许访问的接口 ，加了
 	//batch代码，允许访问api_batch.php 
-，
 	public $mods = ['batch','setMidOrders','catalog','getCatyitem', 'addItem', 'setItem', 'deleteItem', 'mvItem', 'getMenu', 'addMenu', 'deleteMenu', 'uploadImages', 'getImages', 'deleteImages', 'setItemOrders', 'setMenu'];
+
 	// 默认的接口文件
 	public $modFile = '';
 	// 默认的图片上传名称
