@@ -65,7 +65,6 @@
  *      3=>['Mid'=>[[如上]...],'Item'=>[如上....]],
  *      'Mid'=>[['Mid'=>[[如上..]...],'Item'=>[如上....]]],
  *      'Item'=>[[如上...]]
- *      'uid'=>1
  *
  * ]
  *
@@ -80,11 +79,11 @@ if(!defined('IN_DISCUZ')) {
 $param = getParam('datas');
 $param = json_decode($param,true);
 
-if(empty($param['uid'])){
+if(empty($param)){
     $Todo->code = 503;
-    $Todo->msg 	= '用户id不能为空';
+    $Todo->msg 	= '数据不能为空';
 }else{
-    $uid = $param['uid'];
+    $uid = C::t('#xiaomy_cus_todo#jnpar_add')->getuid();
 
     //处理子路径
     foreach ($param as $key=>$val){
