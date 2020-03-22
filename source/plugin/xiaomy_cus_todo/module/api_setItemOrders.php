@@ -11,6 +11,6 @@ if ($orders == false or !is_array($orders)) {
 	$Todo->msg 	= 'system error';
 }else{
 	foreach ($orders as $key => $item) {
-		$todo->setItem(['zindex'=>$item['index']], ['id'=>$item['itemid']]);
+		$Todo->setItem(['zindex'=>$item['index']], ['id'=>$item['itemid']]);
 	}
 }
