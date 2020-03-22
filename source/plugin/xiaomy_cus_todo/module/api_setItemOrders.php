@@ -5,6 +5,7 @@ if(!defined('IN_DISCUZ')) {
 }
 
 $orders = getParam('orders');
+$orders = json_decode($orders, true);
 if ($orders == false or !is_array($orders)) {
 	$Todo->code = 503;
 	$Todo->msg 	= 'system error';
