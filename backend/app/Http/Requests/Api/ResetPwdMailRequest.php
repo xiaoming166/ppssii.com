@@ -6,7 +6,7 @@ namespace App\Http\Requests\Api;
 
 use App\Http\Requests\Request;
 
-class CreateItemRequest extends Request
+class ResetPwdMailRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,17 +26,17 @@ class CreateItemRequest extends Request
     public function rules()
     {
         return [
-            'mid'     => 'required',
-            'content' => 'bail|required|string',
+            'email' => 'bail|required|string|email|max:255',
         ];
     }
 
     public function messages()
     {
         return [
-            'mid.required'     => trans('menu.mid_required'),
-            'content.required' => trans('menu.content_required'),
-            'content.string'   => trans('menu.content_string'),
+            'email.required' => trans('auth.email_required'),
+            'email.string' => trans('auth.email_string'),
+            'email.email'  => trans('auth.email_email'),
+            'email.max'    => trans('auth.email_max_255'),
         ];
     }
 }

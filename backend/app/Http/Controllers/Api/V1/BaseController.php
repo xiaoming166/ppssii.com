@@ -110,4 +110,14 @@ class BaseController extends Controller
         }
         return $this->error($data['err_code'], $data['err_msg']);
     }
+
+    public function verify_email(string $email): bool
+    {
+        if (!preg_match('/^[\w\.]+@\w+\.\w+$/i', $email)) {
+            return false;
+        }
+        return true;
+    }
+
+
 }

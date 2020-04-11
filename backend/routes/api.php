@@ -20,6 +20,12 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($api) {
 
+
+
+    Route::post('retrievePassSendMail', 'LoginController@retrievePassSendMail')->name('admin.retrievePassSendMail');
+
+    Route::post('resetPwd', 'LoginController@resetPwd')->name('admin.resetPwd');
+
     $api->group(['prefix' => 'menu', 'middleware' => ['checkToken']], function ($api) {
         $api->post('list', 'MenuController@list'); // 显示网站内容
         $api->post('addItem', 'MenuController@addItem'); // 添加子节点
@@ -39,5 +45,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         $api->post('logout', 'AuthController@logout'); // 注销
         $api->post('register', 'AuthController@register'); // 注册
         $api->post('makeUuid', 'AuthController@makeUuid'); // 获取uuid
+        $api->post('retrievePwd', 'AuthController@retrievePwd'); // 用户重置密码发送邮件
+        $api->post('resetPwd', 'AuthController@resetPwd'); // 用户重置密码
     });
 });

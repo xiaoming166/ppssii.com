@@ -18,4 +18,7 @@ return [
     40003 => 'parent node not exist',
     40004 => 'child node not exist',
     40005 => 'move fail',
+    40006 => 'email not bind',
+    40007 => 'token required',
+    40008 => 'error link'
 ];

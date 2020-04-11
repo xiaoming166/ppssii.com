@@ -29,4 +29,8 @@ return [
     'parent node not exist' => '父节点不存在',
     'child node not exist'  => '子节点不存在',
     'move fail'             => '移动失败',
+    'email not bind'        => '邮箱未绑定',
+    'token required'        => 'token为必填项',
+    'error link'            => '错误的连接',
+
 ];

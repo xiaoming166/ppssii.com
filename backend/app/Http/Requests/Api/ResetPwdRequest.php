@@ -6,7 +6,7 @@ namespace App\Http\Requests\Api;
 
 use App\Http\Requests\Request;
 
-class RegisterRequest extends Request
+class ResetPwdRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,19 +26,15 @@ class RegisterRequest extends Request
     public function rules()
     {
         return [
-            'username' => 'bail|required|string|max:255|unique:pre_xiaomy_cus_todo_user',
             'email'    => 'bail|required|string|email|max:255',
             'password' => 'bail|required|string|min:8|confirmed',
+            'token'    => 'required'
         ];
     }
 
     public function messages()
     {
         return [
-            'username.required'  => trans('auth.username_required'),
-            'username.string'    => trans('auth.username_string'),
-            'username.max'       => trans('auth.username_max_255'),
-            'username.unique'    => trans('auth.username_unique'),
             'email.string'       => trans('auth.email_string'),
             'email.email'        => trans('auth.email_email'),
             'email.max'          => trans('auth.email_max_255'),
@@ -46,6 +42,7 @@ class RegisterRequest extends Request
             'password.string'    => trans('auth.password_string'),
             'password.min'       => trans('auth.password_min_8'),
             'password.confirmed' => trans('auth.password_confirmed'),
+            'token.required'     => trans('auth.token_required')
         ];
     }
 }

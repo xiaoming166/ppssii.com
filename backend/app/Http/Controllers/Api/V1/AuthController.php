@@ -4,7 +4,13 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\Api\LoginRequest;
 use App\Http\Requests\Api\RegisterRequest;
+use App\Http\Requests\Api\ResetPwdMailRequest;
+use App\Http\Requests\Api\ResetPwdRequest;
 use App\Models\UserModel;
+use App\Services\CacheService;
+use App\Services\MailService;
+use App\Services\UserService;
+use Carbon\Carbon;
 
 class AuthController extends BaseController
 {
@@ -19,7 +25,7 @@ class AuthController extends BaseController
         // 这样的结果是，token 只能在有效期以内进行刷新，过期无法刷新
         // 如果把 refresh 也放进去，token 即使过期但仍在刷新期以内也可刷新
         // 不过刷新一次作废
-        $this->middleware('checkToken', ['except' => ['login', 'refresh', 'register', 'makeUuid']]);
+        $this->middleware('checkToken', ['except' => ['login', 'refresh', 'register', 'makeUuid', 'retrievePwd', 'resetPwd']]);
         // 另外关于上面的中间件，官方文档写的是『auth:api』
         // 但是我推荐用 『jwt.auth』，效果是一样的，但是有更加丰富的报错信息返回
     }
@@ -132,6 +138,90 @@ class AuthController extends BaseController
         ];
 
         return $this->success($return);
+    }
+
+
+    /**
+     * 重置密码发送邮件
+     * @param ResetPwdMailRequest $request
+     * @param UserService $userService
+     * @return mixed
+     */
+    public function retrievePwd(ResetPwdMailRequest $request, UserService $userService)
+    {
+        try {
+            $email = $request->input('email', '');
+
+            // 校验邮箱是否存在用户
+            $user = $userService->getUserByCond(['email' => $email]);
+            if (empty($user)) {
+                return $this->error(40006);
+            }
+
+            $resetPwdUrl = config('app.url') . '/api/resetPwd';
+            $token       = md5($user->id . $user->username . $user->password);
+            $resetPwdUrl .= '?token=' . $token;
+            CacheService::setRetrievePwdToken($email, $token, 600);
+
+            $data = [
+                'username' => $user->username ?? '',
+                'link'     => $resetPwdUrl,
+                'minutes'  => 10,
+                'endTime'  => Carbon::now()->addMinute(10)->toDateTimeString(),
+                'admin'    => config('app.admin_mail'),
+            ];
+
+            $sendData = [
+                'subject'     => '密码找回',
+                'format'      => 'html',
+                'to'          => $email,
+                'body'        => 'email.retrieve',
+                'attachments' => [],
+                'data'        => $data
+            ];
+
+            MailService::sendMail($sendData);
+            return $this->success();
+        } catch (\Exception $e) {
+            return $this->error();
+        }
+    }
+
+    /**
+     * 重置密码(用户重置)
+     * @param ResetPwdRequest $request
+     * @param UserService $userService
+     * @return mixed
+     */
+    public function resetPwd(ResetPwdRequest $request, UserService $userService)
+    {
+        $requestData = $request->all();
+        $user        = $userService->getUserByCond(['email' => $requestData['email']]);
+        if (empty($user)) {
+            return $this->error(40006);
+        }
+
+        // 获取发送邮件的token
+        $token = CacheService::getRetrievePwdToken($requestData['email']);
+        if (empty($token)) {
+            return $this->error(40007);
+        }
+
+        // 判断token是否正确
+        $confirmToken = md5($user->id . $user->username . $user->password);
+        if ($confirmToken != $token) {
+            return $this->error(40008);
+        }
+
+        try {
+            $userModel           = UserModel::query()->where('id', '=', $user->id)->first();
+            $userModel->password = \Hash::make($requestData['password']);
+            $userModel->save();
+
+            return $this->success();
+        } catch (\Exception $e) {
+            return $this->error();
+        }
     }
 
 }

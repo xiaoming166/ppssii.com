@@ -26,5 +26,7 @@ return [
     'password_string'    => '密码为字符串型',
     'password_min_8'     => '密码至少8位',
     'password_confirmed' => '两次密码输入不一致',
+    'token_required'     => 'token为必填项',
+    'email_required'     => '邮箱为必填项',
 
 ];
