@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AccessControlAllowOrigin;
 use App\Http\Middleware\CheckTokenAuthenticate;
 use Fruitcake\Cors\HandleCors;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -64,7 +65,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkToken' => CheckTokenAuthenticate::class,
-        'cors' => HandleCors::class
+        'cors' => AccessControlAllowOrigin::class,
     ];
 
     /**
