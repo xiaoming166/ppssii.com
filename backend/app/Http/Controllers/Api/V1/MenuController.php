@@ -29,10 +29,10 @@ class MenuController extends BaseController
 
     /**
      * 显示网站内容
-     * @param MenuByUidRequest $request
+     * @param Request $request
      * @return mixed
      */
-    public function list(MenuByUidRequest $request)
+    public function list(Request $request)
     {
         try {
             $result = $this->menuService->getMenuByUid();

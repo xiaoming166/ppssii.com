@@ -18,9 +18,8 @@ App::setLocale(\Request::header('lang', 'zh'));
 
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1','middleware' => ['cors']], function ($api) {
 
-
+$api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($api) {
 
     Route::post('retrievePassSendMail', 'LoginController@retrievePassSendMail')->name('admin.retrievePassSendMail');
 

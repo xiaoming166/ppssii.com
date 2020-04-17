@@ -17,12 +17,13 @@ class AccessControlAllowOrigin
      */
     public function handle($request, Closure $next)
     {
-        header('Access-Control-Allow-Origin: *');
-        header("Access-Control-Allow-Credentials: true");
-        header("Access-Control-Allow-Methods: *");
-        header("Access-Control-Allow-Headers: Content-Type,Access-Token");
-        header("Access-Control-Expose-Headers: *");
-
-        return $next($request);
+        $response = $next($request);
+        $origin   = $request->server('HTTP_ORIGIN') ? $request->server('HTTP_ORIGIN') : '';
+        $response->headers->add(['Access-Control-Allow-Origin' => $origin]);
+        $response->headers->add(['Access-Control-Allow-Headers' => 'Origin, Content-Type, Cookie,X-CSRF-TOKEN, Accept,Authorization,uuid']);
+        $response->headers->add(['Access-Control-Expose-Headers' => 'Authorization,authenticated']);
+        $response->headers->add(['Access-Control-Allow-Methods' => 'GET, POST, PATCH, PUT, OPTIONS']);
+        $response->headers->add(['Access-Control-Allow-Credentials' => 'true']);
+        return $response;
     }
 }
