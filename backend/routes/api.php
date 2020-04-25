@@ -46,5 +46,6 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         $api->post('makeUuid', 'AuthController@makeUuid'); // 获取uuid
         $api->post('retrievePwd', 'AuthController@retrievePwd'); // 用户重置密码发送邮件
         $api->post('resetPwd', 'AuthController@resetPwd'); // 用户重置密码
+        $api->post('me', 'AuthController@me'); // 用户重置密码
     });
 });
