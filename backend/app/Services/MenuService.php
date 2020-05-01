@@ -21,10 +21,31 @@ class MenuService extends BaseService
             return null;
         }
 
-        $result = CusToDoMenuModel::where('uid', '=', $uid)->orderBy('orderid')->get();
+        $result = CusToDoMenuModel::where('uid', '=', $uid)->orderBy('orderid')->get()->toArray();
+
+        $result = self::getTree($result);
 
         return $result;
     }
+
+    /**
+     * 树状结构
+     * @param array $nodeArray
+     * @param int $pid
+     * @return array
+     */
+    public static function getTree($nodeArray = array(), $pid = 0)
+    {
+        $return = array();
+        foreach ($nodeArray as $key => $value) {
+            if ($value['pid'] == $pid) {
+                $value['child'] = self::getTree($nodeArray, $value['id']);
+                $return[]       = $value;
+            }
+        }
+        return $return;
+    }
+
 
     /**
      * 添加子节点
