@@ -17,7 +17,7 @@ export class ApiService {
 
   uuid = '';
 
-   var siteurl=165.227.55.93
+  ${this.siteurl}=165.227.55.93
 
   travelUser(id: string = 'xiao_hu_li') {
     return this.http.post(`siteurl/api/auth/makeUuid`, {}).pipe(map((res: AnyObject) => res.data));
