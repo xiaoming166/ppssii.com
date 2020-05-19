@@ -132,7 +132,10 @@ export class Note2Component implements OnInit, AfterViewInit {
       )
     ).subscribe((res) => {
       try {
-        const key = this.el.nativeElement.querySelector('.ant-tree .ant-tree-node-content-wrapper:hover').children[0].id;
+
+        // 叶子节点无法添加
+        const key = this.el.nativeElement
+            .querySelector('.ant-tree .ant-tree-node-content-wrapper:hover').children[0].id;
         this.nzTree.getTreeNodeByKey(key).addChildren([{
           title: 'leaf 0-' + this.ddd++,
           key: this.ddd++,
