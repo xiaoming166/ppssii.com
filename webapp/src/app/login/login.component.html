@@ -1,0 +1,32 @@
+<div class="title-box">
+  <div class="title">
+    webapp
+  </div>
+</div>
+<div class="login-box" [ngStyle]="getScale()">
+  <div class="title">用户登录 / User Login</div>
+  <form #userForm="ngForm" class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>用户名</mat-label>
+      <input id="userName" required matInput #userName='ngModel' [(ngModel)]="user.name" name="userName"
+             placeholder="用户名">
+      <mat-error *ngIf="userName.invalid">用户名不能为空</mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>输入密码</mat-label>
+      <input id="password" required matInput #password='ngModel' [(ngModel)]="user.password" name="password"
+             placeholder="密码" [type]="hide ? 'password' : 'text'">
+      <button  mat-icon-button matSuffix (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon style="height: 2.2em">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="password.invalid">密码不能为空</mat-error>
+    </mat-form-field>
+  </form>
+  <section>
+    <div class="example-button-row">
+      <button mat-raised-button style="width: 100%" color="primary" (click)="login()">登陆</button>
+    </div>
+  </section>
+  <div class="version">版本号: 1.0</div>
+</div>
