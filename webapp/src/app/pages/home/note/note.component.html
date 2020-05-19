@@ -1,0 +1,47 @@
+<nz-layout style="height: 100%">
+  <nz-header style="background-color: #fff;">网络记事本</nz-header>
+  <nz-layout style="background-color: #fff;">
+    <nz-sider [nzWidth]="300" style="padding-left: 24px;margin-bottom: 16px  ;overflow: scroll">
+      <!--      <cdk-tree cdkDropList [cdkDropListData]="dataSource" #treeList="cdkDropList"-->
+      <!--                [dataSource]="dataSource"-->
+      <!--                [treeControl]="treeControl" (cdkDropListDropped)="treeDrop($event)">-->
+      <!--        &lt;!&ndash; This is the tree node template for expandable nodes &ndash;&gt;-->
+      <!--        <cdk-tree-node cdkDrag *cdkTreeNodeDef="let node; when: hasChild" cdkTreeNodePadding-->
+      <!--                       [cdkDragData]="node"-->
+      <!--                       (cdkDragStarted)="dragStarted(node)"-->
+      <!--                       [ngClass]="{'example-tree-node':true,'flex':true, 'example-box':true, 'hidden':!shouldRender(node)}">-->
+      <!--          <button mat-icon-button cdkTreeNodeToggle-->
+      <!--                  [attr.aria-label]="'toggle ' + node.filename"-->
+      <!--                  (click)="node.isExpanded = !node.isExpanded"-->
+      <!--                  [style.visibility]="node.expandable ? 'visible' : 'hidden'">-->
+      <!--            <mat-icon class="mat-icon-rtl-mirror">-->
+      <!--              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}-->
+      <!--            </mat-icon>-->
+      <!--          </button>-->
+      <!--          <span style="flex-grow: 1">{{node.name}}</span>-->
+      <!--        </cdk-tree-node>-->
+      <!--      </cdk-tree>-->
+      <app-note2></app-note2>
+    </nz-sider>
+    <nz-content>
+      <div class="example-container flex" style="justify-content: space-between;
+      flex-direction: column;height: 100%;display: flex;padding:0 24px">
+        <div
+          cdkDropList
+          #doneList="cdkDropList"
+          [cdkDropListData]="done"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of done" cdkDrag [cdkDragData]="item"
+          >{{item.name}}</div>
+        </div>
+        <div>
+          <mat-form-field style="width: 100%;">
+            <mat-label>输入</mat-label>
+            <input matInput (keyup.enter)="submit()" [(ngModel)]="fieldContent">
+            <button style="margin-bottom: 6px;" mat-button matSuffix (click)="submit()">确定</button>
+          </mat-form-field>
+        </div>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
