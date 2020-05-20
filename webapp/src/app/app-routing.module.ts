@@ -4,13 +4,13 @@ import {Routes, RouterModule} from '@angular/router';
 const routes: Routes = [
     {path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule)},
     {path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)},
-    {path: '', pathMatch: 'full', redirectTo: 'login'},
+    {path: '', pathMatch: 'full', redirectTo: 'home'},
 
 ];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes, {
-        useHash: false,
+        useHash: true,
         enableTracing: true,
     })],
     exports: [RouterModule]
