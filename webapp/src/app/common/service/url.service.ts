@@ -2,7 +2,6 @@ import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {isPlatformBrowser, Location} from '@angular/common';
 import {environment} from '../../../environments/environment.prod';
 import {of} from 'rxjs';
-of
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +11,7 @@ export class UrlService {
   }
 
   getUrl(url: string) {
-    return '/nmosp_produce' + url;
+    return '/api/' + url;
   }
 
 

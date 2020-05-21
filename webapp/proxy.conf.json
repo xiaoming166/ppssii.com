@@ -1,0 +1,7 @@
+{
+  "/api/*": {
+    "target": "http://ppssii.com/",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

@@ -1,23 +1,27 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {UrlService} from '../common/service/url.service';
 import {User} from "../model/user";
+import {Api} from "../api/api";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class LoginService {
 
+    // token主体
 
-  constructor(private http: HttpClient,
-              private urlService: UrlService) {
-  }
+    tokenSubject: Subject<string> = new Subject();
 
-  login(user: User): Observable<any> {
-    const url = this.urlService.getUrl('/admin/login');
-    return this.http.post(url, user)
-  }
+    constructor(private http: HttpClient,
+                private urlService: UrlService) {
+    }
+
+    login(user: User): Observable<any> {
+        const url = this.urlService.getUrl(Api.login);
+        return this.http.post(url, user)
+    }
 
 
 }

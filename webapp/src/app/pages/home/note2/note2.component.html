@@ -1,17 +1,23 @@
 <div #treeDiv>
-  <nz-tree
-    #nzTree
-    style="width: 300px"
-    nzBlockNode
-    [nzData]="nodes"
-    (nzClick)="activeNode($event)"
-    (nzDblClick)="openFolder($event)"
-    [nzTreeTemplate]="nzTreeTemplate"
-    nzDraggable (nzOnDrop)="nzEvent($event)"
-  ></nz-tree>
-  <ng-template #nzTreeTemplate let-node let-origin="origin">
-    <div style="flex-grow: 1" [id]="node.key">
-      <div [hidden]="editId === node.key" style="display: flex;justify-content: space-between;align-items: center">
+
+    <button nz-button [nzSize]="'small'"  style="margin: 12px 0;" nzType="dashed" (click)="addFile()">
+        <i nz-icon nzType="file-add" nzTheme="outline"></i>
+        新建文件夹
+    </button>
+    <nz-tree
+        #nzTree
+        style="width: 300px"
+        nzBlockNode
+        [nzData]="nodes"
+        (nzClick)="activeNode($event)"
+        (nzDblClick)="openFolder($event)"
+        [nzTreeTemplate]="nzTreeTemplate"
+        nzDraggable (nzOnDrop)="nzEvent($event)"
+    ></nz-tree>
+    <ng-template #nzTreeTemplate let-node let-origin="origin">
+        <div style="flex-grow: 1" [id]="node.key">
+            <div [hidden]="editId === node.key"
+                 style="display: flex;justify-content: space-between;align-items: center">
         <span class="custom-node">
         <span *ngIf="!node.isLeaf" (contextmenu)="contextMenu($event, menu)">
           <i nz-icon [nzType]="node.isExpanded ? 'folder-open' : 'folder'" (click)="openFolder(node)"></i>
@@ -22,17 +28,17 @@
           <span class="file-name">{{ node.title }}</span>
         </span>
       </span>
-        <i style="margin-left: auto;margin-right: 12px" nz-icon nzType="edit" nzTheme="outline"
-           (click)="startEdit(node.key)"></i>
-        <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteNode(node.key)"></i>
-      </div>
-      <input [hidden]="editId !== node.key" type="text" nz-input [(ngModel)]="node.title" (blur)="stopEdit()"/>
-    </div>
-  </ng-template>
-  <nz-dropdown-menu #menu="nzDropdownMenu">
-    <ul nz-menu>
-      <li nz-menu-item (click)="selectDropdown()">Action 1</li>
-      <li nz-menu-item (click)="selectDropdown()">Action 2</li>
-    </ul>
-  </nz-dropdown-menu>
+                <i style="margin-left: auto;margin-right: 12px" nz-icon nzType="edit" nzTheme="outline"
+                   (click)="startEdit(node.key)"></i>
+                <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteNode(node.key)"></i>
+            </div>
+            <input [hidden]="editId !== node.key" type="text" nz-input [(ngModel)]="node.title" (blur)="stopEdit()"/>
+        </div>
+    </ng-template>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+            <li nz-menu-item (click)="selectDropdown()">Action 1</li>
+            <li nz-menu-item (click)="selectDropdown()">Action 2</li>
+        </ul>
+    </nz-dropdown-menu>
 </div>

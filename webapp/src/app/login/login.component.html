@@ -8,7 +8,7 @@
   <form #userForm="ngForm" class="example-form">
     <mat-form-field class="example-full-width">
       <mat-label>用户名</mat-label>
-      <input id="userName" required matInput #userName='ngModel' [(ngModel)]="user.name" name="userName"
+      <input id="userName" required matInput #userName='ngModel' [(ngModel)]="user.username" name="userName"
              placeholder="用户名">
       <mat-error *ngIf="userName.invalid">用户名不能为空</mat-error>
     </mat-form-field>
@@ -25,7 +25,7 @@
   </form>
   <section>
     <div class="example-button-row">
-      <button mat-raised-button style="width: 100%" color="primary" (click)="login()">登陆</button>
+      <button [disabled]="!userForm.form.valid" mat-raised-button style="width: 100%" color="primary" (click)="login()">登陆</button>
     </div>
   </section>
   <div class="version">版本号: 1.0</div>
