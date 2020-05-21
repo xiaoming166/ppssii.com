@@ -15,30 +15,32 @@ import {en_US} from 'ng-zorro-antd/i18n';
 import {registerLocaleData} from '@angular/common';
 import en from '@angular/common/locales/en';
 import {AppInterceptor} from "./common/interceptor/app.interceptor";
+import {ShareModule} from "./common/share.module";
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    IconsProviderModule,
-    NzLayoutModule,
-    NzMenuModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule
-  ],
-  providers: [{provide: NZ_I18N, useValue: en_US},
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AppInterceptor,
-      multi: true
-    }],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        IconsProviderModule,
+        NzLayoutModule,
+        ShareModule,
+        NzMenuModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule
+    ],
+    providers: [{provide: NZ_I18N, useValue: en_US},
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AppInterceptor,
+            multi: true
+        }],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
