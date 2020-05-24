@@ -18,11 +18,17 @@ class AccessControlAllowOrigin
     public function handle($request, Closure $next)
     {
         $response = $next($request);
-        $origin   = $request->server('HTTP_ORIGIN') ? $request->server('HTTP_ORIGIN') : '*';
+//        $origin   = $request->server('HTTP_ORIGIN') ? $request->server('HTTP_ORIGIN') : '*';
+//        $response->headers->add(['Access-Control-Allow-Origin' => '*']);
+//        $response->headers->add(['Access-Control-Allow-Headers' => 'Origin, Authorization,Token,Content-Type,Pragma,Cache-Control,X-Requested-With,Cookie,X-CSRF-TOKEN,Accept,uuid,Referer']);
+//        $response->headers->add(['Access-Control-Expose-Headers' => 'Authorization,authenticated']);
+//        $response->headers->add(['Access-Control-Allow-Methods' => 'GET, POST, PATCH, PUT, OPTIONS']);
+//        $response->headers->add(['Access-Control-Allow-Credentials' => 'true']);
+
+
         $response->headers->add(['Access-Control-Allow-Origin' => '*']);
-        $response->headers->add(['Access-Control-Allow-Headers' => 'Origin, Authorization,Token,Content-Type,Pragma,Cache-Control,X-Requested-With,Cookie,X-CSRF-TOKEN,Accept,uuid,Referer']);
-        $response->headers->add(['Access-Control-Expose-Headers' => 'Authorization,authenticated']);
-        $response->headers->add(['Access-Control-Allow-Methods' => 'GET, POST, PATCH, PUT, OPTIONS']);
+        $response->headers->add(['Access-Control-Allow-Headers' => '*']);
+        $response->headers->add(['Access-Control-Allow-Methods' => '*']);
         $response->headers->add(['Access-Control-Allow-Credentials' => 'true']);
         return $response;
     }
