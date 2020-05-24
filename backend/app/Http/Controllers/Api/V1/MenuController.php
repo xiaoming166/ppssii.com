@@ -38,6 +38,7 @@ class MenuController extends BaseController
             $result = $this->menuService->getMenuByUid();
             return $this->success($result);
         } catch (\Exception $e) {
+
             return $this->error();
         }
     }
